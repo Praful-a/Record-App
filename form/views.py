@@ -13,3 +13,11 @@ def register(request):
 
 def login_page(request):
     return render(request, "login.html")
+
+
+def add(request):
+    return render(request, "add.html")
+
+
+def record(request):
+    return render(request, "record.html")

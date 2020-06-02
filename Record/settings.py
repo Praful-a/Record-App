@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +124,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "Home"),
     os.path.join(BASE_DIR, "Register"),
     os.path.join(BASE_DIR, "Login"),
+    os.path.join(BASE_DIR, "Form_Page"),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "assets")
