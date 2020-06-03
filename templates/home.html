@@ -13,8 +13,14 @@
 
             <div class="row mb-4" data-aos="fade-up" data-aos-delay="200">
               <div class="col-lg-6 mr-auto">
+                {% if user.is_authenticated %}
+                <h1>Welcome {{ user.first_name }}</h1>
+                <h1>Make YourSelf Fast To EveryOne.</h1>
+                <p class="mb-5">Record App helps everyone to show data everyone without using Excel. Easily add, update, delete you data in seconds.</p>
+                {% else %}
                 <h1>Make YourSelf Fast To EveryOne.</h1>
                 <p class="mb-5">Record App helps everybody to show data everyone withour using Excel. Easily add, update, delete you data in seconds.</p>
+                {% endif %}
                 <div>
                   <a href="{% url 'record:add' %}" class="btn btn-primary mr-2 mb-2">Get Started</a>
                 </div>

@@ -40,14 +40,28 @@
 			<div class="login100-more" style="background-image: url({% static 'images/bg-01.jpg' %});"></div>
 
 			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-				<form class="login100-form validate-form">
+				{% if messages %}
+						{% for message in messages %}
+							 <div class="alert {{ message.tags }} 		alert-dismissible" role="alert">
+								 {{ message }}
+							 </div>
+						 {% endfor %}
+					{% endif %}
+				<form class="login100-form validate-form" method="POST">
+					{% csrf_token %}
 					<span class="login100-form-title p-b-59">
-						Sign Up
+						Register Account
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate="Name is required">
-						<span class="label-input100">Full Name</span>
-						<input class="input100" type="text" name="name" placeholder="Name...">
+						<span class="label-input100">First Name</span>
+						<input class="input100" type="text" name="first_name" placeholder="First Name...">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Name is required">
+						<span class="label-input100">Last Name</span>
+						<input class="input100" type="text" name="last_name" placeholder="Last Name...">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -65,13 +79,13 @@
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="text" name="pass" placeholder="*************">
+						<input class="input100" type="password" name="password1" placeholder="*************">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
 						<span class="label-input100">Repeat Password</span>
-						<input class="input100" type="text" name="repeat-pass" placeholder="*************">
+						<input class="input100" type="password" name="password2" placeholder="*************">
 						<span class="focus-input100"></span>
 					</div>
 
