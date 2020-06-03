@@ -32,7 +32,7 @@ class Emp(models.Model):
 
 def pre_save_item(sender, instance, *args, **kwargs):
     if not instance.slug:
-        instance.slug = slugify(instance.author.username + "-" + instance.title)
+        instance.slug = slugify(instance.author.username + "-" + str(instance.Emp_ID))
 
 
 pre_save.connect(pre_save_item, sender=Emp)
