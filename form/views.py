@@ -3,6 +3,7 @@ from .models import Emp
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
+from .forms import EmpForm
 # Create your views here.
 
 
@@ -66,8 +67,20 @@ def home(request):
 
 
 def add(request):
-    return render(request, "add.html")
+    user = request.user
+    form = EmpForm(request.POST)
+    if form.is_valid():
+        obj = form.save(commit=False)
+        author = User.objects.filter(username=user.username).first()
+        obj.author = author
+        obj.save()
+        form = EmpForm()
+        return redirect('record:report')
+    context = {'form': form}
+    return render(request, "add.html", context)
 
 
 def record(request):
-    return render(request, "record.html")
+    report = Emp.objects.filter(author=request.user)
+    context = {'report': report}
+    return render(request, "record.html", context)
