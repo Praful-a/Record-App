@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Emp
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
-from .forms import EmpForm
+from .forms import EmpForm, UpdateForm
 # Create your views here.
 
 
@@ -84,3 +84,41 @@ def record(request):
     report = Emp.objects.filter(author=request.user)
     context = {'report': report}
     return render(request, "record.html", context)
+
+
+def edit(request, slug):
+    data = get_object_or_404(Emp, slug=slug)
+    if request.POST:
+        form = UpdateForm(request.POST, instance=data)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.save()
+            data = obj
+            return redirect('record:report')
+    form = UpdateForm(
+        initial={
+            'Emp_ID': data.Emp_ID,
+            'First_Name': data.First_Name,
+            'Last_Name': data.Last_Name,
+            'Email': data.Email,
+            'Phone': data.Phone,
+            'Job_Title': data.Job_Title,
+            'Department': data.Department,
+            'Address': data.Address,
+            'City': data.City,
+            'Zipcode': data.Zipcode,
+            'Country': data.Country,
+            'Salary': data.Salary
+        }
+    )
+    context = {'form': form}
+    return render(request, 'edit.html', context)
+
+
+def delete(request, slug):
+    data = get_object_or_404(Emp, slug=slug)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('record:report')
+    context = {"data": data}
+    return render(request, 'delete.html', context)
