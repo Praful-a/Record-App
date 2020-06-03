@@ -24,7 +24,7 @@ class Emp(models.Model):
     slug = models.SlugField(blank=True, unique=True)
 
     def __str__(self):
-        return self.Email
+        return self.slug
 
     class Meta:
         verbose_name_plural = "Record"
